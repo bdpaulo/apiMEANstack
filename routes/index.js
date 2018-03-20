@@ -17,17 +17,17 @@ router.get('/heroes', function (req, res, next) { //trata as resquisicoes get no
 });
 
 /* GET ONE hero. */
-router.get('/hero/:id', function (req, res, next) { //trata a requisicao get sendo que a busca deve ser feita usando o id
+router.get('/heroes/:id', function (req, res, next) { //trata a requisicao get sendo que a busca deve ser feita usando o id
   var db = require('../db');
   var Hero = db.Mongoose.model('herocollection', db.heroSchema, 'herocollection');
-  Heroes.find({ _id: req.params.id }).lean().exec(function (e, docs) {  //usa o id para a pesquisa no banco
+  Hero.find({ _id: req.params.id }).lean().exec(function (e, docs) {  //usa o id para a pesquisa no banco
       res.json(docs);
       res.end();
   });
 });
 
 /* POST ONE hero. */
-router.post('/hero', function (req, res, next) {
+router.post('/heroes', function (req, res, next) {
   var db = require('../db');
   var Hero = db.Mongoose.model('herocollection', db.heroSchema, 'herocollection'); //instancia o BD e o esquema a ser usado
   var newhero = new Hero({  //instancia o novo hero e preenche os campos com os dados vindos do body da requisicao
@@ -47,7 +47,7 @@ router.post('/hero', function (req, res, next) {
 
 
 /* PUT ONE hero. */
-router.put('/hero/:id', function (req, res, next) {
+router.put('/heroes/:id', function (req, res, next) {
   var db = require('../db');
   var Hero = db.Mongoose.model('herocollection', db.heroSchema, 'herocollection');
   Hero.findOneAndUpdate({ _id: req.params.id }, 
@@ -65,7 +65,7 @@ router.put('/hero/:id', function (req, res, next) {
 });
 
 /* DELETE ONE hero. */
-router.delete('/hero/:id', function (req, res, next) {
+router.delete('/heroes/:id', function (req, res, next) {
     var db = require('../db');
     var Hero = db.Mongoose.model('herocollection', db.heroSchema, 'herocollection');
     Hero.find({ _id: req.params.id }).remove(function (err) {
